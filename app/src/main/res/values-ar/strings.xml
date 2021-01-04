@@ -65,7 +65,7 @@
     <string name="date_created">تاريخ الإنشاء</string>
     <string name="deal_cost">سعر الصفقة</string>
     <string name="amount">الكمية</string>
-    <string name="work_classification">تصنيف العمل</string>
+    <string name="work_classification">تصنيف العميل</string>
     <string name="products">المنتجات</string>
     <string name="deal_balance">رصيدك من الصفقة</string>
     <string name="percentage">النسبة</string>
@@ -73,5 +73,9 @@
     <string name="price">السعر</string>
     <string name="pay">الدفع</string>
     <string name="done">تم الدفع</string>
+    <string name="user_not_found">المستخدم غير موجود</string>
+    <string name="charge">رصيدي</string>
+    <string name="current">الحالية</string>
+    <string name="previous">السابقة</string>
 
 </resources>

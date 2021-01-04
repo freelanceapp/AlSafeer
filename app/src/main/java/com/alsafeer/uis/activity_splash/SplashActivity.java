@@ -12,6 +12,9 @@ import android.os.Looper;
 import com.alsafeer.R;
 import com.alsafeer.databinding.ActivitySplashBinding;
 import com.alsafeer.language.Language;
+import com.alsafeer.models.UserModel;
+import com.alsafeer.preferences.Preferences;
+import com.alsafeer.uis.activity_home.HomeActivity;
 import com.alsafeer.uis.activity_login.LoginActivity;
 
 import io.paperdb.Paper;
@@ -33,9 +36,17 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initView() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(this, LoginActivity.class);
+            Preferences preferences = Preferences.getInstance();
+            UserModel userModel = preferences.getUserData(this);
+            Intent intent;
+            if(userModel==null){
+                intent = new Intent(this, LoginActivity.class);
+            }else {
+                intent = new Intent(this, HomeActivity.class);
+            }
             startActivity(intent);
             finish();
+
         },2000);
     }
 }

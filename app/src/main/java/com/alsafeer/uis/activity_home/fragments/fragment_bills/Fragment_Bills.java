@@ -52,10 +52,10 @@ public class Fragment_Bills extends Fragment {
         activity = (HomeActivity) getActivity();
         titles = new ArrayList<>();
         fragmentList = new ArrayList<>();
-        titles.add(getString(R.string.deals));
-        titles.add(getString(R.string.joint_deals));
-        fragmentList.add(Fragment_Deal.newInstance());
-        fragmentList.add(Fragment_Joint_Deal.newInstance());
+        titles.add(getString(R.string.current));
+        titles.add(getString(R.string.previous));
+        fragmentList.add(Fragment_Current.newInstance());
+        fragmentList.add(Fragment_Previous.newInstance());
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(activity);
 

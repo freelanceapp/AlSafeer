@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.alsafeer.models.JointDealDataModel.Data" />
+    </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -8,6 +13,8 @@
         app:cardElevation="3dp"
         app:cardCornerRadius="8dp"
         app:contentPadding="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="3dp"
 
         >
         <LinearLayout
@@ -37,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
+                    android:text="@{model.name}"
 
                     />
 
@@ -65,7 +73,7 @@
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:layout_gravity="center_vertical"
-
+                    date="@{model.creation_date}"
                     />
 
             </LinearLayout>
@@ -93,6 +101,7 @@
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:layout_gravity="center_vertical"
+                    android:text='@{String.valueOf(model.detail.percent)+"%"}'
 
 
                     />

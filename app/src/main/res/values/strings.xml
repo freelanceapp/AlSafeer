@@ -65,7 +65,7 @@
     <string name="date_created">Date created</string>
     <string name="deal_cost">Deal Cost</string>
     <string name="amount">Amount</string>
-    <string name="work_classification">Work classification</string>
+    <string name="work_classification">Client comments</string>
     <string name="products">Products</string>
     <string name="deal_balance">Deal balance</string>
     <string name="percentage">Percentage</string>
@@ -73,4 +73,8 @@
     <string name="price">Price</string>
     <string name="pay">Pay</string>
     <string name="done">Done</string>
+    <string name="user_not_found">user not found</string>
+    <string name="charge">Charge</string>
+    <string name="current">Current</string>
+    <string name="previous">Previous</string>
 </resources>

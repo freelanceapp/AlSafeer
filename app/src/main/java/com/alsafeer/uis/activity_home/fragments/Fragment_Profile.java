@@ -1,5 +1,4 @@
 package com.alsafeer.uis.activity_home.fragments;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -51,6 +50,8 @@ public class Fragment_Profile extends Fragment{
         userModel = preferences.getUserData(activity);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
+        binding.setModel(userModel);
+
 
     }
 

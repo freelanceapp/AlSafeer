@@ -5,6 +5,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="model"
+            type="com.alsafeer.models.UserModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -39,6 +42,7 @@
                     app:civ_border_width="1dp"
                     app:civ_border_color="@color/colorPrimary"
                     android:src="@drawable/ic_avatar"
+                    user_image="@{model.data.image}"
 
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -87,6 +91,7 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="15sp"
                         android:textColor="@color/black"
+                        android:text="@{model.data.email}"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -135,6 +140,7 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="15sp"
                         android:textColor="@color/black"
+                        android:text="@{model.data.phone}"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -183,6 +189,7 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="15sp"
                         android:textColor="@color/black"
+                        android:text="@string/charge"
                         />
                     <Space
                         android:layout_width="0dp"
@@ -194,7 +201,7 @@
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:text="0"
+                        android:text="@{String.valueOf(model.data.total)}"
                         android:textStyle="bold"
                         />
                     <Space

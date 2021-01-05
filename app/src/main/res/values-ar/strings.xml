@@ -74,7 +74,7 @@
     <string name="pay">الدفع</string>
     <string name="done">تم الدفع</string>
     <string name="user_not_found">المستخدم غير موجود</string>
-    <string name="charge">رصيدي</string>
+    <string name="charge">المحفظة الالكترونية</string>
     <string name="current">الحالية</string>
     <string name="previous">السابقة</string>
     <string name="upload_payment_receipt_photo">برجاء رفع صورة ايصال الدفع...</string>
@@ -85,5 +85,6 @@
     <string name="no_notifications_to_show">لاتوجد إشعارات لعرضها</string>
     <string name="name">الإسم</string>
     <string name="update">تعديل الملف الشخصي</string>
+    <string name="next">التالي</string>
 
 </resources>

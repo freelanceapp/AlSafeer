@@ -20,6 +20,7 @@ import com.alsafeer.databinding.FragmentProfileBinding;
 import com.alsafeer.models.UserModel;
 import com.alsafeer.preferences.Preferences;
 import com.alsafeer.uis.activity_home.HomeActivity;
+import com.alsafeer.uis.activity_language.LanguageActivity;
 import com.alsafeer.uis.activity_update_profile.UpdateProfileActivity;
 
 import io.paperdb.Paper;
@@ -56,6 +57,11 @@ public class Fragment_Profile extends Fragment{
         binding.cardEditProfile.setOnClickListener(v ->{
             Intent intent = new Intent(activity, UpdateProfileActivity.class);
             startActivityForResult(intent,200);
+        });
+
+        binding.cardChangeLanguage.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, LanguageActivity.class);
+            startActivityForResult(intent,100);
         });
 
     }

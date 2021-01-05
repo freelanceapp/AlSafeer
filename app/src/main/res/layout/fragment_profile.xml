@@ -283,6 +283,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardChangeLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 app:cardCornerRadius="5dp"

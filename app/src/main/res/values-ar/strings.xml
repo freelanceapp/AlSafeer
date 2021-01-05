@@ -77,5 +77,11 @@
     <string name="charge">رصيدي</string>
     <string name="current">الحالية</string>
     <string name="previous">السابقة</string>
+    <string name="upload_payment_receipt_photo">برجاء رفع صورة ايصال الدفع...</string>
+    <string name="notes">إضافة ملاحظات</string>
+    <string name="send">إرسال</string>
+    <string name="ch_image">إختر صورة إيصال الدفع</string>
+    <string name="suc">تم بنجاح!</string>
+    <string name="no_notifications_to_show">لاتوجد إشعارات لعرضها</string>
 
 </resources>

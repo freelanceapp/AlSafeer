@@ -2,16 +2,23 @@ package com.alsafeer.services;
 
 import com.alsafeer.models.DealDataModel;
 import com.alsafeer.models.JointDealDataModel;
+import com.alsafeer.models.NotificationDataModel;
 import com.alsafeer.models.PlaceGeocodeData;
 import com.alsafeer.models.PlaceMapDetailsData;
 import com.alsafeer.models.ReceiptDataModel;
+import com.alsafeer.models.ResponseModel;
 import com.alsafeer.models.UserModel;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Service {
@@ -44,4 +51,20 @@ public interface Service {
 
     @GET("api/GetReset")
     Call<ReceiptDataModel> getReceiptData(@Query(value = "sale_id") int sale_id);
+
+    @GET("api/GetAllResets")
+    Call<ReceiptDataModel> getCurrentPreviousDeals(@Query(value = "user_id") int user_id,
+                                                   @Query(value = "type") String type
+    );
+
+    @Multipart
+    @POST("api/PayReset")
+    Call<ResponseModel> pay(@Part("user_id") RequestBody user_id,
+                            @Part("notes") RequestBody notes,
+                            @Part("receipt_id") RequestBody receipt_id,
+                            @Part MultipartBody.Part image);
+
+    @GET("api/GetNotification")
+    Call<NotificationDataModel> getNotifications(@Query(value = "user_id") int user_id
+    );
 }

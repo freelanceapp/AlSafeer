@@ -77,4 +77,10 @@
     <string name="charge">Charge</string>
     <string name="current">Current</string>
     <string name="previous">Previous</string>
+    <string name="upload_payment_receipt_photo">Upload payment receipt photo</string>
+    <string name="notes">Notes</string>
+    <string name="send">Send</string>
+    <string name="ch_image">Choose image</string>
+    <string name="suc">Success!</string>
+    <string name="no_notifications_to_show">No notifications to show</string>
 </resources>

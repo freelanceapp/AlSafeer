@@ -68,4 +68,11 @@ public class Fragment_Bills extends Fragment {
     }
 
 
+    public void refreshFragmentPreviousDeals() {
+        Fragment_Previous fragment_previous = (Fragment_Previous) fragmentList.get(1);
+        fragment_previous.getData();
+        Fragment_Current fragment_current = (Fragment_Current) fragmentList.get(0);
+        fragment_current.getData();
+
+    }
 }

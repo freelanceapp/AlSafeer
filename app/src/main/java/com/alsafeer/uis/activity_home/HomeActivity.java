@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,7 @@ import com.alsafeer.language.Language;
 import com.alsafeer.uis.activity_home.fragments.Fragment_Profile;
 import com.alsafeer.uis.activity_home.fragments.fragment_bills.Fragment_Bills;
 import com.alsafeer.uis.activity_home.fragments.fragment_deals.Fragment_Deals;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.alsafeer.uis.activity_notifications.NotificationActivity;
 
 import java.util.List;
 
@@ -50,8 +49,11 @@ public class HomeActivity extends AppCompatActivity{
     private void initView() {
         fragmentManager = getSupportFragmentManager();
         displayFragmentDeals();
+        binding.flNotification.setOnClickListener(v -> {
+            Intent intent = new Intent(this, NotificationActivity.class);
+            startActivity(intent);
+        });
         binding.navigationView.setSelectedItemId(R.id.deal);
-
         binding.navigationView.setOnNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             switch (id){
@@ -177,6 +179,12 @@ public class HomeActivity extends AppCompatActivity{
             finish();
         }else {
             binding.navigationView.setSelectedItemId(R.id.deal);
+        }
+    }
+
+    public void refreshFragmentPreviousDeals() {
+        if (fragment_bills!=null&&fragment_bills.isAdded()){
+            fragment_bills.refreshFragmentPreviousDeals();
         }
     }
 }

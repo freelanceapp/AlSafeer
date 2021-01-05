@@ -21,16 +21,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".uis.activity_receipt.ReceiptActivity"
+
+        <activity android:name=".uis.activity_notifications.NotificationActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             />
-        <activity android:name=".uis.activity_deal_joint_details.DealJointDetailsActivity"
+        <activity android:name=".uis.activity_pay.PayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             />
+        <activity
+            android:name=".uis.activity_receipt.ReceiptActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".uis.activity_deal_joint_details.DealJointDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".uis.activity_deal_details.DealDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

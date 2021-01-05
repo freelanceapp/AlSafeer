@@ -6,6 +6,7 @@ import java.util.List;
 public class DealDataModel implements Serializable {
     private List<Data> data;
     private int status;
+
     public List<Data> getData() {
         return data;
     }
@@ -14,7 +15,8 @@ public class DealDataModel implements Serializable {
         return status;
     }
 
-    public static class Data implements Serializable{
+    public static class Data implements Serializable
+    {
         private int id;
         private String name;
         private int deal_id;
@@ -26,6 +28,7 @@ public class DealDataModel implements Serializable {
         private String updated_at;
         private Describe describe;
         private List<ProductModel2> details;
+
 
 
         public int getId() {
@@ -72,7 +75,7 @@ public class DealDataModel implements Serializable {
             return details;
         }
 
-        public static class Describe implements Serializable{
+        public static class Describe implements Serializable {
             private int id;
             private String name;
             private String created_at;

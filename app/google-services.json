@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134919046541",
+    "project_id": "crmapp-2da2b",
+    "storage_bucket": "crmapp-2da2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134919046541:android:80aad2d4844eb7cbd4a9c4",
+        "android_client_info": {
+          "package_name": "com.alsafeer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134919046541-vbnal2dd6nrv0sof9jr7p7sp9ut5at03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzfSU7GLNmVP2KM3G1FKJfcLHoGumCvdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134919046541-vbnal2dd6nrv0sof9jr7p7sp9ut5at03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

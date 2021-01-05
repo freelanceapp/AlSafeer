@@ -402,6 +402,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:text="@string/bills"
+            android:visibility="gone"
             />
     </LinearLayout>
 

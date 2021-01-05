@@ -1,10 +1,14 @@
 package com.alsafeer.uis.activity_home;
 
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +20,30 @@ import androidx.fragment.app.FragmentManager;
 import com.alsafeer.R;
 import com.alsafeer.databinding.ActivityHomeBinding;
 import com.alsafeer.language.Language;
+import com.alsafeer.models.ResponseModel;
+import com.alsafeer.models.UserModel;
+import com.alsafeer.preferences.Preferences;
+import com.alsafeer.remote.Api;
+import com.alsafeer.share.Common;
+import com.alsafeer.tags.Tags;
 import com.alsafeer.uis.activity_home.fragments.Fragment_Profile;
 import com.alsafeer.uis.activity_home.fragments.fragment_bills.Fragment_Bills;
 import com.alsafeer.uis.activity_home.fragments.fragment_deals.Fragment_Deals;
+import com.alsafeer.uis.activity_login.LoginActivity;
 import com.alsafeer.uis.activity_notifications.NotificationActivity;
+import com.alsafeer.uis.activity_pay.PayActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.io.IOException;
 import java.util.List;
 
 import io.paperdb.Paper;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity{
     private ActivityHomeBinding binding;
@@ -31,6 +51,8 @@ public class HomeActivity extends AppCompatActivity{
     private Fragment_Deals fragment_deals;
     private Fragment_Bills fragment_bills;
     private Fragment_Profile fragment_profile;
+    private Preferences preferences;
+    private UserModel userModel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -47,6 +69,8 @@ public class HomeActivity extends AppCompatActivity{
 
 
     private void initView() {
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
         fragmentManager = getSupportFragmentManager();
         displayFragmentDeals();
         binding.flNotification.setOnClickListener(v -> {
@@ -70,10 +94,62 @@ public class HomeActivity extends AppCompatActivity{
             return true;
         });
 
-
+        if (userModel!=null){
+            updateFirebaseToken();
+        }
 
     }
 
+
+    private void updateFirebaseToken()
+    {
+        FirebaseInstanceId.getInstance()
+                .getInstanceId()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        String token = task.getResult().getToken();
+                        try {
+                            Api.getService(Tags.base_url)
+                                    .updateFirebaseToken(userModel.getData().getId(), token, "android")
+                                    .enqueue(new Callback<ResponseModel>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                            if (response.isSuccessful() && response.body() != null) {
+                                                Log.e("token", "updated successfully");
+                                            } else {
+                                                try {
+
+                                                    Log.e("errorToken", response.code() + "_" + response.errorBody().string());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                            try {
+
+                                                if (t.getMessage() != null) {
+                                                    Log.e("errorToken2", t.getMessage());
+                                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                                        Toast.makeText(HomeActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+
+                                            } catch (Exception e) {
+                                            }
+                                        }
+                                    });
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
+    }
 
     private void displayFragmentDeals(){
         if (fragment_deals ==null){
@@ -151,6 +227,80 @@ public class HomeActivity extends AppCompatActivity{
         },1500);
 
 
+    }
+
+    public void logout()
+    {
+        Preferences preferences = Preferences.getInstance();
+        UserModel userModel = preferences.getUserData(this);
+        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService(Tags.base_url)
+                .logout(userModel.getData().getId())
+                .enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()) {
+
+                            if (response.body().getStatus()==200){
+                                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                if (manager!=null){
+                                    manager.cancel(Tags.not_tag,Tags.not_id);
+                                }
+                                preferences.clear(HomeActivity.this);
+                                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                Toast.makeText(HomeActivity.this, R.string.failed, Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        } else {
+                            dialog.dismiss();
+
+                            switch (response.code()){
+                                case 500:
+                                    Toast.makeText(HomeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(HomeActivity.this,getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                            try {
+                                Log.e("error_code",response.code()+"_");
+                            } catch (NullPointerException e){
+
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage());
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(HomeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                }
+                                else if (t.getMessage().toLowerCase().contains("socket")||t.getMessage().toLowerCase().contains("canceled")){ }
+                                else {
+                                    Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
 

@@ -20,4 +20,6 @@
     <color name="transparent">#00000000</color>
     <color name="colorred">#ef0607</color>
     <color name="color_gray_trans">#55e0e0e0</color>
+    <color name="trans_black">#55000000</color>
+
 </resources>

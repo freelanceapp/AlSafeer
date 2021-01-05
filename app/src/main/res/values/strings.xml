@@ -3,7 +3,7 @@
     <string name="field_req">Field required</string>
     <string name="login">Login</string>
     <string name="code">Code</string>
-    <string name="user_phone">User Phone</string>
+    <string name="user_phone">Phone</string>
     <string name="are_you_have_account">Are You Have Account ?</string>
     <string name="upload_profile_photo">Upload Profile Photo</string>
     <string name="email">Email</string>
@@ -83,4 +83,6 @@
     <string name="ch_image">Choose image</string>
     <string name="suc">Success!</string>
     <string name="no_notifications_to_show">No notifications to show</string>
+    <string name="name">Name</string>
+    <string name="update">Update Profile</string>
 </resources>

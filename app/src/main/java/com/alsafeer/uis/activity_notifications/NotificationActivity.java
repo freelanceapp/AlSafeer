@@ -1,5 +1,6 @@
 package com.alsafeer.uis.activity_notifications;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,12 @@ public class NotificationActivity extends AppCompatActivity  {
     }
 
     private void initView() {
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (manager!=null){
+            manager.cancel(Tags.not_tag,Tags.not_id);
+        }
+
         notificationModelList = new ArrayList<>();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);

@@ -83,5 +83,7 @@
     <string name="ch_image">إختر صورة إيصال الدفع</string>
     <string name="suc">تم بنجاح!</string>
     <string name="no_notifications_to_show">لاتوجد إشعارات لعرضها</string>
+    <string name="name">الإسم</string>
+    <string name="update">تعديل الملف الشخصي</string>
 
 </resources>

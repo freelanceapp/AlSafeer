@@ -20,12 +20,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
 
+        <activity android:name=".uis.activity_update_profile.UpdateProfileActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".uis.activity_notifications.NotificationActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
+            android:taskAffinity=""
+            android:launchMode="singleTask"
+            android:excludeFromRecents="true"
             />
         <activity android:name=".uis.activity_pay.PayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -68,6 +78,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <service
+            android:name=".notifications.FireBaseMessaging"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

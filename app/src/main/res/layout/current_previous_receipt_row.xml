@@ -124,6 +124,8 @@
                     android:textSize="13sp"
                     android:text='@{model.status.equals("yes")?@string/done:@string/pay}'
                     android:background='@{model.status.equals("yes")?@drawable/rounded_btn_gray:@drawable/rounded_btn_color1}'
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     />
 
 

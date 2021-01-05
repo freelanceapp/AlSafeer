@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -67,4 +68,40 @@ public interface Service {
     @GET("api/GetNotification")
     Call<NotificationDataModel> getNotifications(@Query(value = "user_id") int user_id
     );
+
+    @GET("api/logout")
+    Call<ResponseModel> logout(@Query(value = "user_id") int user_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("api/UpdateProfile")
+    Call<UserModel> updateProfileWithoutImage(@Field("user_id") int user_id,
+                                              @Field("name") String name,
+                                              @Field("email") String email,
+                                              @Field("phone") String phone
+
+
+    );
+
+    @Multipart
+    @POST("api/UpdateProfile")
+    Call<UserModel> updateProfileWithImage(@Part("user_id") RequestBody user_id,
+                                           @Part("name") RequestBody name,
+                                           @Part("email") RequestBody email,
+                                           @Part("phone") RequestBody phone,
+                                           @Part MultipartBody.Part logo
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/UploadToken")
+    Call<ResponseModel> updateFirebaseToken(@Field("user_id") int user_id,
+                                            @Field("token") String token,
+                                            @Field("type") String type
+
+    );
+
+
 }

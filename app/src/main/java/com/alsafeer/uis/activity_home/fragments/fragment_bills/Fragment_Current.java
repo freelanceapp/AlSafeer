@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alsafeer.R;
 import com.alsafeer.adapters.CurrentPreviousAdapter;
@@ -69,7 +70,7 @@ public class Fragment_Current extends Fragment  {
         binding.recView.setLayoutManager(new LinearLayoutManager(activity));
         adapter = new CurrentPreviousAdapter(receiptModelList,activity,this);
         binding.recView.setAdapter(adapter);
-
+        binding.swipeRefresh.setOnRefreshListener(() -> getData());
         getData();
 
 
@@ -77,9 +78,6 @@ public class Fragment_Current extends Fragment  {
 
     public void getData()
     {
-        binding.tvNoData.setVisibility(View.GONE);
-        receiptModelList.clear();
-        adapter.notifyDataSetChanged();
 
         Api.getService(Tags.base_url)
                 .getCurrentPreviousDeals(userModel.getData().getId(),"no")
@@ -87,6 +85,7 @@ public class Fragment_Current extends Fragment  {
                     @Override
                     public void onResponse(Call<ReceiptDataModel> call, Response<ReceiptDataModel> response) {
                         binding.progBar.setVisibility(View.GONE);
+                        binding.swipeRefresh.setRefreshing(false);
                         if (response.isSuccessful()) {
 
                             if (response.body().getStatus()==200){
@@ -109,6 +108,7 @@ public class Fragment_Current extends Fragment  {
 
                         } else {
                             binding.progBar.setVisibility(View.GONE);
+                            binding.swipeRefresh.setRefreshing(false);
 
                             switch (response.code()){
                                 case 500:
@@ -133,6 +133,8 @@ public class Fragment_Current extends Fragment  {
                     public void onFailure(Call<ReceiptDataModel> call, Throwable t) {
                         try {
                             binding.progBar.setVisibility(View.GONE);
+                            binding.swipeRefresh.setRefreshing(false);
+
                             if (t.getMessage() != null) {
                                 Log.e("error", t.getMessage());
                                 if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
@@ -162,6 +164,7 @@ public class Fragment_Current extends Fragment  {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==100&&resultCode== Activity.RESULT_OK){
             activity.refreshFragmentPreviousDeals();
+            Log.e("1","1");
         }
     }
 }

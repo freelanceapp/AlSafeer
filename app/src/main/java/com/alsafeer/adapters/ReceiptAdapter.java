@@ -14,6 +14,7 @@ import com.alsafeer.databinding.ReceiptRowBinding;
 import com.alsafeer.models.DealDataModel;
 import com.alsafeer.models.ReceiptDataModel;
 import com.alsafeer.uis.activity_home.fragments.fragment_deals.Fragment_Deal;
+import com.alsafeer.uis.activity_receipt.ReceiptActivity;
 
 import java.util.List;
 
@@ -22,11 +23,13 @@ public class ReceiptAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<ReceiptDataModel.ReceiptModel> list;
     private Context context;
     private LayoutInflater inflater;
+    private ReceiptActivity activity;
 
     public ReceiptAdapter(List<ReceiptDataModel.ReceiptModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
+        activity = (ReceiptActivity) context;
 
     }
 
@@ -44,7 +47,10 @@ public class ReceiptAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         MyHolder myHolder = (MyHolder) holder;
         ReceiptDataModel.ReceiptModel model = list.get(position);
         myHolder.binding.setModel(model);
-
+        myHolder.binding.btnPay.setOnClickListener(v -> {
+            ReceiptDataModel.ReceiptModel model2 = list.get(myHolder.getAdapterPosition());
+            activity.pay(model2);
+        });
 
     }
 

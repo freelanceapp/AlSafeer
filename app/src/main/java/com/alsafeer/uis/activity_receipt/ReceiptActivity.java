@@ -1,5 +1,6 @@
 package com.alsafeer.uis.activity_receipt;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.alsafeer.models.ProductModel2;
 import com.alsafeer.models.ReceiptDataModel;
 import com.alsafeer.remote.Api;
 import com.alsafeer.tags.Tags;
+import com.alsafeer.uis.activity_pay.PayActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +75,11 @@ public class ReceiptActivity extends AppCompatActivity {
 
     private void getData()
     {
+        binding.progBar.setVisibility(View.VISIBLE);
+        receiptModelList.clear();
+        adapter.notifyDataSetChanged();
+        binding.tvNoData.setVisibility(View.GONE);
+
         Api.getService(Tags.base_url)
                 .getReceiptData(id)
                 .enqueue(new Callback<ReceiptDataModel>() {
@@ -146,4 +153,18 @@ public class ReceiptActivity extends AppCompatActivity {
                 });
     }
 
+    public void pay(ReceiptDataModel.ReceiptModel model) {
+        Intent intent = new Intent(this, PayActivity.class);
+        intent.putExtra("data",model);
+        startActivityForResult(intent,100);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100&&resultCode==RESULT_OK){
+            getData();
+        }
+    }
 }

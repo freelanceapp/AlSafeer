@@ -1,6 +1,7 @@
 package com.alsafeer.uis.activity_home.fragments.fragment_bills;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class Fragment_Bills extends Fragment {
 
 
     public void refreshFragmentPreviousDeals() {
+        Log.e("3","3");
         Fragment_Previous fragment_previous = (Fragment_Previous) fragmentList.get(1);
         fragment_previous.getData();
         Fragment_Current fragment_current = (Fragment_Current) fragmentList.get(0);

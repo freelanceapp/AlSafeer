@@ -67,6 +67,8 @@ public class Fragment_Joint_Deal extends Fragment  {
         binding.recView.setLayoutManager(new LinearLayoutManager(activity));
         adapter = new JointDealAdapter(jointDealList,activity,this);
         binding.recView.setAdapter(adapter);
+        binding.swipeRefresh.setOnRefreshListener(() -> getData());
+
         getData();
 
 
@@ -80,6 +82,7 @@ public class Fragment_Joint_Deal extends Fragment  {
                     @Override
                     public void onResponse(Call<JointDealDataModel> call, Response<JointDealDataModel> response) {
                         binding.progBar.setVisibility(View.GONE);
+                        binding.swipeRefresh.setRefreshing(false);
 
                         if (response.isSuccessful()) {
 
@@ -101,6 +104,7 @@ public class Fragment_Joint_Deal extends Fragment  {
                             }
                         }else {
                             binding.progBar.setVisibility(View.GONE);
+                            binding.swipeRefresh.setRefreshing(false);
 
                             switch (response.code()){
                                 case 500:

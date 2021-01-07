@@ -64,6 +64,7 @@ public class Fragment_Previous extends Fragment  {
         binding.recView.setLayoutManager(new LinearLayoutManager(activity));
         adapter = new CurrentPreviousAdapter(receiptModelList,activity,this);
         binding.recView.setAdapter(adapter);
+        binding.swipeRefresh.setOnRefreshListener(() -> getData());
 
         getData();
 
@@ -72,15 +73,13 @@ public class Fragment_Previous extends Fragment  {
 
     public void getData()
     {
-        binding.tvNoData.setVisibility(View.GONE);
-        receiptModelList.clear();
-        adapter.notifyDataSetChanged();
 
         Api.getService(Tags.base_url)
                 .getCurrentPreviousDeals(userModel.getData().getId(),"yes")
                 .enqueue(new Callback<ReceiptDataModel>() {
                     @Override
                     public void onResponse(Call<ReceiptDataModel> call, Response<ReceiptDataModel> response) {
+                        binding.swipeRefresh.setRefreshing(false);
                         binding.progBar.setVisibility(View.GONE);
                         if (response.isSuccessful()) {
 
@@ -103,6 +102,8 @@ public class Fragment_Previous extends Fragment  {
 
 
                         } else {
+                            binding.swipeRefresh.setRefreshing(false);
+
                             binding.progBar.setVisibility(View.GONE);
 
                             switch (response.code()){
@@ -127,6 +128,8 @@ public class Fragment_Previous extends Fragment  {
                     @Override
                     public void onFailure(Call<ReceiptDataModel> call, Throwable t) {
                         try {
+                            binding.swipeRefresh.setRefreshing(false);
+
                             binding.progBar.setVisibility(View.GONE);
                             if (t.getMessage() != null) {
                                 Log.e("error", t.getMessage());

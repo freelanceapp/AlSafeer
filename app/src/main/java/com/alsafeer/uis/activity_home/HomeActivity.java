@@ -334,6 +334,7 @@ public class HomeActivity extends AppCompatActivity{
 
     public void refreshFragmentPreviousDeals() {
         if (fragment_bills!=null&&fragment_bills.isAdded()){
+            Log.e("2","2");
             fragment_bills.refreshFragmentPreviousDeals();
         }
     }

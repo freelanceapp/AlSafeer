@@ -69,6 +69,8 @@ public class Fragment_Deal extends Fragment  {
         binding.recView.setLayoutManager(new LinearLayoutManager(activity));
         adapter = new DealAdapter(dealList,activity,this);
         binding.recView.setAdapter(adapter);
+        binding.swipeRefresh.setOnRefreshListener(() -> getData());
+
         getData();
 
 
@@ -76,12 +78,15 @@ public class Fragment_Deal extends Fragment  {
 
     private void getData()
     {
+
         Api.getService(Tags.base_url)
                 .getDealData(userModel.getData().getId())
                 .enqueue(new Callback<DealDataModel>() {
                     @Override
                     public void onResponse(Call<DealDataModel> call, Response<DealDataModel> response) {
                         binding.progBar.setVisibility(View.GONE);
+                        binding.swipeRefresh.setRefreshing(false);
+
                         if (response.isSuccessful()) {
 
                             if (response.body().getStatus()==200){
@@ -104,6 +109,7 @@ public class Fragment_Deal extends Fragment  {
 
                         } else {
                             binding.progBar.setVisibility(View.GONE);
+                            binding.swipeRefresh.setRefreshing(false);
 
                             switch (response.code()){
                                 case 500:
@@ -127,6 +133,8 @@ public class Fragment_Deal extends Fragment  {
                     @Override
                     public void onFailure(Call<DealDataModel> call, Throwable t) {
                         try {
+                            binding.swipeRefresh.setRefreshing(false);
+
                             binding.progBar.setVisibility(View.GONE);
                             if (t.getMessage() != null) {
                                 Log.e("error", t.getMessage());

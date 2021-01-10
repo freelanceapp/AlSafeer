@@ -103,5 +103,8 @@ public interface Service {
 
     );
 
+    @GET("api/GetProfile")
+    Call<UserModel> getUserById(@Query(value = "user_id") int user_id
+    );
 
 }

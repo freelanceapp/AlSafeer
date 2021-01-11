@@ -104,6 +104,7 @@ public class PayActivity extends AppCompatActivity {
                 Toast.makeText(this, R.string.ch_image, Toast.LENGTH_SHORT).show();
             }
         });
+        binding.llBack.setOnClickListener(v -> finish());
 
     }
 

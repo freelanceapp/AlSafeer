@@ -7,6 +7,7 @@ public class UserModel implements Serializable {
 
     private User data;
     private int status;
+
     public User getData() {
         return data;
     }

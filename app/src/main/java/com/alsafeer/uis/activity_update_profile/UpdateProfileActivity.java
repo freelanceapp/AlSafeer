@@ -244,6 +244,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private void updateProfileWithoutImage() {
 
+
         ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
@@ -255,7 +256,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
                         dialog.dismiss();
                         if (response.isSuccessful()) {
 
-                            if (response.body().getStatus()==200&&response.body()!=null){
+                            Log.e("status",response.body().getStatus()+"__");
+                            if (response.body().getStatus()==200){
                                 preferences.create_update_userdata(UpdateProfileActivity.this, response.body());
                                 setResult(RESULT_OK);
                                 finish();
